@@ -1,0 +1,62 @@
+name: Validate API Keys
+
+# Triggered by the frontend via a `repository_dispatch` API call with
+# event_type: "validate-keys" and client_payload: { run_id, keys: [...] }.
+# The workflow runs scripts/validate.mjs and commits the JSON result to the
+# orphan `results` branch as `results/<run_id>.json`. The frontend then polls
+# GitHub's contents API for that file.
+
+on:
+  repository_dispatch:
+    types: [validate-keys]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: validate-${{ github.event.client_payload.run_id }}
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Run validation
+        env:
+          PAYLOAD: ${{ toJson(github.event.client_payload) }}
+        run: node scripts/validate.mjs
+
+      - name: Publish result to `results` branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_ID: ${{ github.event.client_payload.run_id }}
+        run: |
+          set -e
+          mv "results/${RUN_ID}.json" "/tmp/${RUN_ID}.json"
+          git config user.name  "akv-bot"
+          git config user.email "akv-bot@users.noreply.github.com"
+          # Fetch existing `results` branch or create an orphan one.
+          if git ls-remote --exit-code --heads origin results >/dev/null 2>&1; then
+            git fetch origin results
+            git checkout results
+          else
+            git checkout --orphan results
+            git rm -rf . >/dev/null 2>&1 || true
+            echo "# akv results — auto-generated, auto-pruned" > README.md
+            git add README.md
+            git commit -m "init results branch"
+          fi
+          mkdir -p results
+          cp "/tmp/${RUN_ID}.json" "results/${RUN_ID}.json"
+          # Prune results older than 24h.
+          find results -type f -name '*.json' -mmin +1440 -delete || true
+          git add results
+          git commit -m "run ${RUN_ID}" || echo "nothing to commit"
+          git push origin results

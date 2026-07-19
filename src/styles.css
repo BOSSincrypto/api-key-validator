@@ -1,0 +1,169 @@
+@import "tailwindcss" source(none);
+@source "../src";
+
+/*
+ * AI Key Validator - design tokens.
+ * Dark-first developer tool. Off-black + off-white, single accent varies
+ * by status (emerald / rose / amber).
+ */
+
+@theme inline {
+  --font-sans: "Geist", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, "SF Mono", Consolas, monospace;
+
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-hi: var(--surface-hi);
+  --color-border: var(--border);
+  --color-border-hi: var(--border-hi);
+  --color-text: var(--text);
+  --color-text-dim: var(--text-dim);
+  --color-text-mute: var(--text-mute);
+  --color-accent: var(--accent);
+  --color-accent-fg: var(--accent-fg);
+  --color-success: var(--success);
+  --color-danger: var(--danger);
+  --color-warn: var(--warn);
+}
+
+:root {
+  --bg: oklch(0.16 0.006 260);
+  --surface: oklch(0.20 0.006 260);
+  --surface-hi: oklch(0.24 0.006 260);
+  --border: oklch(0.28 0.006 260);
+  --border-hi: oklch(0.36 0.008 260);
+  --text: oklch(0.97 0.003 260);
+  --text-dim: oklch(0.75 0.006 260);
+  --text-mute: oklch(0.55 0.008 260);
+  --accent: oklch(0.72 0.15 155);
+  --accent-fg: oklch(0.15 0.006 260);
+  --success: oklch(0.72 0.15 155);
+  --danger: oklch(0.68 0.20 15);
+  --warn: oklch(0.80 0.15 75);
+}
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+  html, body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    min-height: 100dvh;
+  }
+  * {
+    border-color: var(--color-border);
+  }
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-accent-fg);
+  }
+  code, kbd, pre, .mono {
+    font-family: var(--font-mono);
+  }
+}
+
+@layer components {
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.55rem 1rem;
+    border-radius: 8px;
+    border: 1px solid var(--color-border-hi);
+    background: var(--color-surface-hi);
+    color: var(--color-text);
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1;
+    transition: transform 120ms ease, background-color 120ms ease, border-color 120ms ease;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .btn:hover:not(:disabled) { background: color-mix(in oklch, var(--color-surface-hi), white 6%); }
+  .btn:active:not(:disabled) { transform: translateY(1px); }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .btn-primary {
+    background: var(--color-accent);
+    color: var(--color-accent-fg);
+    border-color: transparent;
+  }
+  .btn-primary:hover:not(:disabled) {
+    background: color-mix(in oklch, var(--color-accent), white 8%);
+  }
+  .btn-ghost {
+    background: transparent;
+    border-color: transparent;
+    color: var(--color-text-dim);
+  }
+  .btn-ghost:hover:not(:disabled) {
+    background: var(--color-surface);
+    color: var(--color-text);
+  }
+
+  .input, .textarea {
+    display: block;
+    width: 100%;
+    padding: 0.6rem 0.85rem;
+    border-radius: 8px;
+    border: 1px solid var(--color-border-hi);
+    background: var(--color-surface);
+    color: var(--color-text);
+    font-size: 0.875rem;
+    font-family: var(--font-mono);
+    outline: none;
+    transition: border-color 120ms ease;
+  }
+  .input:focus, .textarea:focus {
+    border-color: var(--color-accent);
+  }
+  .input::placeholder, .textarea::placeholder {
+    color: var(--color-text-mute);
+  }
+  .textarea {
+    min-height: 180px;
+    resize: vertical;
+    line-height: 1.5;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.15rem 0.55rem;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 500;
+    font-family: var(--font-mono);
+    border: 1px solid var(--color-border-hi);
+    background: var(--color-surface);
+    color: var(--color-text-dim);
+  }
+  .badge-success {
+    color: var(--color-success);
+    border-color: color-mix(in oklch, var(--color-success), transparent 60%);
+    background: color-mix(in oklch, var(--color-success), transparent 88%);
+  }
+  .badge-danger {
+    color: var(--color-danger);
+    border-color: color-mix(in oklch, var(--color-danger), transparent 60%);
+    background: color-mix(in oklch, var(--color-danger), transparent 88%);
+  }
+  .badge-warn {
+    color: var(--color-warn);
+    border-color: color-mix(in oklch, var(--color-warn), transparent 60%);
+    background: color-mix(in oklch, var(--color-warn), transparent 88%);
+  }
+
+  .card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+  }
+}
