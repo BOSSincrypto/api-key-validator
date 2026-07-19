@@ -29,17 +29,21 @@ jobs:
 
       - name: Build
         env:
-          # Custom domain (api-key-validator.bossincrypto.dev) is served from "/".
-          # Project-pages fallback: set VITE_BASE_PATH="/api-key-validator/" if CNAME is removed.
-          VITE_BASE_PATH: /
-        run: bun run build
+          # Custom domain api-key-validator.bossincrypto.dev is served from site root.
+          VITE_BASE_PATH: "/"
+        run: |
+          echo "VITE_BASE_PATH=${VITE_BASE_PATH}"
+          bun run build
+          echo "--- dist/index.html ---"
+          cat dist/index.html
 
       - name: SPA fallback + nojekyll
         run: |
           cp dist/index.html dist/404.html
           touch dist/.nojekyll
-          # Ensure custom domain is present even if public/CNAME is missing.
-          echo "api-key-validator.bossincrypto.dev" > dist/CNAME
+          printf '%s\n' 'api-key-validator.bossincrypto.dev' > dist/CNAME
+          ls -la dist
+          cat dist/CNAME
 
       - uses: actions/upload-pages-artifact@v3
         with:

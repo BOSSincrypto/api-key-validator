@@ -1,5 +1,3 @@
-<div align="center">
-
 # AI Key Validator
 
 **Bulk-validate API keys for 100+ providers — in your browser, on your runner.**
@@ -15,8 +13,6 @@ Paste a wall of keys. Auto-detect the provider. Hit each real auth endpoint from
 [Report bug](https://github.com/BOSSincrypto/api-key-validator/issues) ·
 [Request provider](https://github.com/BOSSincrypto/api-key-validator/issues/new)
 
-</div>
-
 ---
 
 ## Why
@@ -26,15 +22,15 @@ Rotated a batch of keys and don't know which still work? Inherited a `.env` grav
 Most validators send your keys to someone else's backend. This one does not.
 
 - Keys leave the browser only for GitHub API dispatch / poll (HTTPS) and then from **your** Actions runner to each provider.
-- Results are masked (`sk-proj…abcd`) before they land on the orphan `results` branch.
+- Results are masked (`sk-proj...abcd`) before they land on the orphan `results` branch.
 - No accounts, no analytics, no third-party storage of raw keys.
 
 ## Features
 
 | Feature | Detail |
 | --- | --- |
-| Auto-detect | Regex registry for 113 providers (`sk-ant-…`, `AIza…`, `xai-…`, `sk-proj-…`, …) |
-| Parallel validate | Cheap authenticated endpoints (models list, whoami, credits, …) |
+| Auto-detect | Regex registry for 113 providers (`sk-ant-...`, `AIza...`, `xai-...`, `sk-proj-...`) |
+| Parallel validate | Cheap authenticated endpoints (models list, whoami, credits, ...) |
 | Clear verdicts | `valid` · `invalid` · `rate_limited` · `error` + HTTP status + latency + snippet |
 | Masked UI | Keys never shown or stored in full in the SPA |
 | CSV export | One-click download of a finished run |
@@ -154,13 +150,23 @@ This repo ships two workflows:
 
 Canonical site: **https://api-key-validator.bossincrypto.dev**
 
-- `public/CNAME` → `api-key-validator.bossincrypto.dev`
-- Build uses `VITE_BASE_PATH=/` (root of the subdomain)
-- DNS (Porkbun): `CNAME` `api-key-validator` → `bossincrypto.github.io`
-- GitHub Pages: custom domain + HTTPS enforced
+DNS at Porkbun (required once):
 
-Fallback project URL still works after DNS/CNAME:  
-https://bossincrypto.github.io/api-key-validator/ (paths differ when base is `/`)
+| Type | Host | Answer | TTL |
+| --- | --- | --- | --- |
+| `CNAME` | `api-key-validator` | `bossincrypto.github.io` | 600 |
+
+Optional apex verification if GitHub asks for it later:
+
+| Type | Host | Answer |
+| --- | --- | --- |
+| `TXT` | `_github-pages-challenge-BOSSincrypto.api-key-validator` | *(value from Pages settings)* |
+
+Repo already ships:
+
+- `public/CNAME` → `api-key-validator.bossincrypto.dev`
+- Build `VITE_BASE_PATH="/"` for subdomain root
+- Pages custom domain configured (HTTPS after DNS propagates)
 
 ## License
 
@@ -168,8 +174,4 @@ MIT
 
 ---
 
-<div align="center">
-
 Built for operators who rotate keys faster than they inventory them.
-
-</div>
