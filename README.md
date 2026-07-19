@@ -165,8 +165,8 @@ Optional apex verification if GitHub asks for it later:
 Repo already ships:
 
 - `public/CNAME` → `api-key-validator.bossincrypto.dev`
-- Build `VITE_BASE_PATH="/"` for subdomain root
-- Pages custom domain configured (HTTPS after DNS propagates)
+- Build uses relative asset paths (`VITE_BASE_PATH="./"`) so both the subdomain and github.io project URL work
+- Pages custom domain configured (enforce HTTPS after DNS propagates)
 
 ## License
 

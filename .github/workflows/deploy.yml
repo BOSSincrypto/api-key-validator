@@ -29,8 +29,8 @@ jobs:
 
       - name: Build
         env:
-          # Custom domain api-key-validator.bossincrypto.dev is served from site root.
-          VITE_BASE_PATH: "/"
+          # Relative base works for custom domain root AND github.io project path.
+          VITE_BASE_PATH: "./"
         run: |
           echo "VITE_BASE_PATH=${VITE_BASE_PATH}"
           bun run build
