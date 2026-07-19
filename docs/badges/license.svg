@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="118" height="28" role="img" aria-label="license: MIT">
+  <title>license: MIT</title>
+  <rect width="118" height="28" rx="4" fill="#111827"/>
+  <rect x="68" width="50" height="28" rx="4" fill="#f59e0b"/>
+  <rect x="68" width="8" height="28" fill="#f59e0b"/>
+  <text x="34" y="18" text-anchor="middle" font-family="Segoe UI, Ubuntu, Sans-Serif" font-size="11" font-weight="700" fill="#9ca3af">license</text>
+  <text x="93" y="18" text-anchor="middle" font-family="Segoe UI, Ubuntu, Sans-Serif" font-size="11" font-weight="700" fill="#111827">MIT</text>
+</svg>

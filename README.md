@@ -1,30 +1,25 @@
-<p align="center">
-  <img src="https://img.shields.io/badge/akv-AI%20Key%20Validator-111827?style=for-the-badge&labelColor=6366f1" alt="akv" />
-</p>
+<div align="center">
 
-<h1 align="center">AI Key Validator</h1>
+# AI Key Validator
 
-<p align="center">
-  <strong>Bulk-check 113 API key formats against real provider auth endpoints.</strong><br/>
-  Your browser · your GitHub Actions runner · zero third-party backend.
-</p>
+**Bulk-check 113 API key formats against real provider auth endpoints.**
 
-<p align="center">
-  <a href="https://api-key-validator.bossincrypto.dev"><img src="https://img.shields.io/badge/●_live-api--key--validator.bossincrypto.dev-6366f1?style=for-the-badge" alt="Live" /></a>
-  <a href="#supported-providers"><img src="https://img.shields.io/badge/providers-113-0ea5e9?style=for-the-badge" alt="Providers" /></a>
-  <a href="#stack"><img src="https://img.shields.io/badge/stack-React_19_·_Vite_7_·_Actions-10b981?style=for-the-badge" alt="Stack" /></a>
-  <a href="#license"><img src="https://img.shields.io/badge/license-MIT-f59e0b?style=for-the-badge" alt="License" /></a>
-</p>
+Your browser · your GitHub Actions runner · zero third-party backend.
 
-<p align="center">
-  <a href="https://api-key-validator.bossincrypto.dev"><b>Open the live app →</b></a>
-  &nbsp;·&nbsp;
-  <a href="#60-second-setup">Setup</a>
-  &nbsp;·&nbsp;
-  <a href="#how-it-works">Architecture</a>
-  &nbsp;·&nbsp;
-  <a href="#supported-providers">Providers</a>
-</p>
+[![Live](docs/badges/live.svg)](https://api-key-validator.bossincrypto.dev)
+[![Providers](docs/badges/providers.svg)](#supported-providers)
+[![Stack](docs/badges/stack.svg)](#stack)
+[![License](docs/badges/license.svg)](#license)
+
+[**Open the live app →**](https://api-key-validator.bossincrypto.dev)
+&nbsp;·&nbsp;
+[Setup](#60-second-setup)
+&nbsp;·&nbsp;
+[Architecture](#how-it-works)
+&nbsp;·&nbsp;
+[Providers](#supported-providers)
+
+</div>
 
 ---
 
@@ -32,15 +27,15 @@
 
 You rotated a batch of keys. Or inherited a `.env` graveyard. Or need a pre-deploy sanity check across OpenAI, Anthropic, Gemini, Stripe, Supabase, and thirty other services.
 
-Most “key checkers” want your secrets on *their* server.
+Most "key checkers" want your secrets on *their* server.
 
 **akv does not.**
 
 ```text
-  your keys  ──►  your browser  ──►  your fork’s Actions runner  ──►  provider APIs
-                      │                        │
-                      └──── localStorage PAT ──┘
-                           (never our backend — there isn’t one)
+  your keys  -->  your browser  -->  your fork's Actions runner  -->  provider APIs
+                      |                        |
+                      +---- localStorage PAT --+
+                           (never our backend -- there isn't one)
 ```
 
 ---
@@ -49,10 +44,10 @@ Most “key checkers” want your secrets on *their* server.
 
 | | |
 | :--- | :--- |
-| **Auto-detect** | 113 regex-backed formats: `sk-proj-…`, `sk-ant-…`, `AIza…`, `xai-…`, `gsk_…`, … |
-| **Real auth pings** | Cheap authenticated endpoints (models list, whoami, credits) — not fake format checks |
+| **Auto-detect** | 113 regex-backed formats: `sk-proj-...`, `sk-ant-...`, `AIza...`, `xai-...`, `gsk_...` |
+| **Real auth pings** | Cheap authenticated endpoints (models list, whoami, credits) -- not fake format checks |
 | **Clear verdicts** | `valid` · `invalid` · `rate_limited` · `error` + HTTP status + latency + response snippet |
-| **Masked everywhere** | UI and results store `sk-proj…abcd` only — full keys never written back |
+| **Masked everywhere** | UI and results store `sk-proj...abcd` only -- full keys never written back |
 | **CSV export** | One click after a run |
 | **Hard ceiling** | Up to 500 keys per run, parallelized on the runner |
 | **Zero backend** | Static SPA on GitHub Pages + one workflow on *your* fork |
@@ -237,7 +232,10 @@ Fallback: https://bossincrypto.github.io/api-key-validator/
 ├── src/
 │   ├── components/        # Setup, Validator, Results, provider list
 │   └── lib/               # detect, dispatch, mask, providers
-├── public/CNAME           # api-key-validator.bossincrypto.dev
+├── public/
+│   ├── CNAME
+│   ├── favicon.svg
+│   └── favicon.ico
 └── package.json
 ```
 
@@ -249,7 +247,10 @@ Fallback: https://bossincrypto.github.io/api-key-validator/
 
 ---
 
-<p align="center">
-  <sub>Built for operators who rotate keys faster than they inventory them.</sub><br/>
-  <a href="https://api-key-validator.bossincrypto.dev"><b>Try it live →</b></a>
-</p>
+<div align="center">
+
+<sub>Built for operators who rotate keys faster than they inventory them.</sub>
+
+[**Try it live →**](https://api-key-validator.bossincrypto.dev)
+
+</div>

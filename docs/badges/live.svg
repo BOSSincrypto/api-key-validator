@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="118" height="28" role="img" aria-label="live: online">
+  <title>live: online</title>
+  <rect width="118" height="28" rx="4" fill="#111827"/>
+  <rect x="44" width="74" height="28" rx="4" fill="#6366f1"/>
+  <rect x="44" width="8" height="28" fill="#6366f1"/>
+  <text x="22" y="18" text-anchor="middle" font-family="Segoe UI, Ubuntu, Sans-Serif" font-size="11" font-weight="700" fill="#9ca3af">live</text>
+  <circle cx="58" cy="14" r="3" fill="#34d399"/>
+  <text x="84" y="18" text-anchor="middle" font-family="Segoe UI, Ubuntu, Sans-Serif" font-size="11" font-weight="700" fill="#ffffff">online</text>
+</svg>

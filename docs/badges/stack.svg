@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="210" height="28" role="img" aria-label="stack: React + Vite + Actions">
+  <title>stack: React + Vite + Actions</title>
+  <rect width="210" height="28" rx="4" fill="#111827"/>
+  <rect x="52" width="158" height="28" rx="4" fill="#10b981"/>
+  <rect x="52" width="8" height="28" fill="#10b981"/>
+  <text x="26" y="18" text-anchor="middle" font-family="Segoe UI, Ubuntu, Sans-Serif" font-size="11" font-weight="700" fill="#9ca3af">stack</text>
+  <text x="131" y="18" text-anchor="middle" font-family="Segoe UI, Ubuntu, Sans-Serif" font-size="11" font-weight="700" fill="#ffffff">React + Vite + Actions</text>
+</svg>
