@@ -29,14 +29,17 @@ jobs:
 
       - name: Build
         env:
-          # Project Pages: https://<user>.github.io/<repo>/ — set "/" for a custom domain.
-          VITE_BASE_PATH: /${{ github.event.repository.name }}/
+          # Custom domain (api-key-validator.bossincrypto.dev) is served from "/".
+          # Project-pages fallback: set VITE_BASE_PATH="/api-key-validator/" if CNAME is removed.
+          VITE_BASE_PATH: /
         run: bun run build
 
       - name: SPA fallback + nojekyll
         run: |
           cp dist/index.html dist/404.html
           touch dist/.nojekyll
+          # Ensure custom domain is present even if public/CNAME is missing.
+          echo "api-key-validator.bossincrypto.dev" > dist/CNAME
 
       - uses: actions/upload-pages-artifact@v3
         with:

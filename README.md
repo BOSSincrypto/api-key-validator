@@ -2,16 +2,18 @@
 
 # AI Key Validator
 
-### Bulk-validate API keys for 100+ providers — in your browser, on *your* runner.
+**Bulk-validate API keys for 100+ providers — in your browser, on your runner.**
 
 Paste a wall of keys. Auto-detect the provider. Hit each real auth endpoint from a GitHub Actions runner you control. Get `valid` / `invalid` / `rate_limited` / `error` for every one.
 
-[![Live demo](https://img.shields.io/badge/live-bossincrypto.github.io-6366f1?style=for-the-badge&logo=githubpages&logoColor=white)](https://bossincrypto.github.io/api-key-validator/)
+[![Live](https://img.shields.io/badge/live-api--key--validator.bossincrypto.dev-6366f1?style=for-the-badge)](https://api-key-validator.bossincrypto.dev)
 [![Providers](https://img.shields.io/badge/providers-113-0ea5e9?style=for-the-badge)](#supported-providers)
 [![Stack](https://img.shields.io/badge/stack-React%20%2B%20Vite%20%2B%20Actions-10b981?style=for-the-badge)](#stack)
 [![License](https://img.shields.io/badge/license-MIT-f59e0b?style=for-the-badge)](#license)
 
-[Live demo](https://bossincrypto.github.io/api-key-validator/) · [Report bug](https://github.com/BOSSincrypto/api-key-validator/issues) · [Request provider](https://github.com/BOSSincrypto/api-key-validator/issues/new)
+**[Live demo](https://api-key-validator.bossincrypto.dev)** ·
+[Report bug](https://github.com/BOSSincrypto/api-key-validator/issues) ·
+[Request provider](https://github.com/BOSSincrypto/api-key-validator/issues/new)
 
 </div>
 
@@ -21,16 +23,16 @@ Paste a wall of keys. Auto-detect the provider. Hit each real auth endpoint from
 
 Rotated a batch of keys and don't know which still work? Inherited a `.env` graveyard? Need a quick sanity check before a deploy?
 
-Most validators send your keys to *someone else's* backend. This one does not.
+Most validators send your keys to someone else's backend. This one does not.
 
-- Keys leave the browser only for GitHub API dispatch / poll (encrypted HTTPS) and then from **your** Actions runner to each provider.
+- Keys leave the browser only for GitHub API dispatch / poll (HTTPS) and then from **your** Actions runner to each provider.
 - Results are masked (`sk-proj…abcd`) before they land on the orphan `results` branch.
 - No accounts, no analytics, no third-party storage of raw keys.
 
 ## Features
 
-| | |
-|---|---|
+| Feature | Detail |
+| --- | --- |
 | Auto-detect | Regex registry for 113 providers (`sk-ant-…`, `AIza…`, `xai-…`, `sk-proj-…`, …) |
 | Parallel validate | Cheap authenticated endpoints (models list, whoami, credits, …) |
 | Clear verdicts | `valid` · `invalid` · `rate_limited` · `error` + HTTP status + latency + snippet |
@@ -49,7 +51,7 @@ Browser  --repository_dispatch-->  GitHub API
    +----- masked JSON <---- results branch
                                    |
                                    v
-                            Provider APIs (OpenAI, Anthropic, …)
+                            Provider APIs (OpenAI, Anthropic, ...)
 ```
 
 1. SPA parses paste, dedupes, auto-detects provider per key.
@@ -58,11 +60,11 @@ Browser  --repository_dispatch-->  GitHub API
 4. JSON result is committed to the orphan `results` branch; files older than 24h are pruned.
 5. SPA polls GitHub Contents API until the file appears (typical cold start 15–40s).
 
-> Deploy path is separate: every push to `main` builds the SPA and publishes to GitHub Pages automatically.
+Deploy path is separate: every push to `main` builds the SPA and publishes to GitHub Pages automatically.
 
 ## Live demo
 
-**[https://bossincrypto.github.io/api-key-validator/](https://bossincrypto.github.io/api-key-validator/)**
+**Site:** https://api-key-validator.bossincrypto.dev
 
 1. Fork this repo.
 2. Create a [fine-grained PAT](https://github.com/settings/personal-access-tokens/new) limited to that fork:
@@ -87,41 +89,29 @@ No `VITE_*` secrets required for the GitHub Actions validation path.
 
 ## Supported providers
 
-<details>
-<summary><b>AI / LLMs</b></summary>
+### AI / LLMs
 
 OpenAI · Anthropic · Google Gemini · xAI (Grok) · Groq · Mistral · DeepSeek · OpenRouter · Perplexity · Cohere · Together · Fireworks · Cerebras · Novita · Anyscale · Hugging Face · Replicate · NVIDIA · GitHub Models · Hyperbolic · SambaNova · AI21 · Friendli · GLHF · Zhipu
-</details>
 
-<details>
-<summary><b>Voice / Audio / Video</b></summary>
+### Voice / Audio / Video
 
 ElevenLabs · AssemblyAI · Deepgram · Cartesia · Stability · Runway · Luma · Twelve Labs
-</details>
 
-<details>
-<summary><b>Embeddings / Vector / Search</b></summary>
+### Embeddings / Vector / Search
 
 Voyage · Jina · Nomic · Pinecone · Exa · Tavily · Brave Search · Firecrawl
-</details>
 
-<details>
-<summary><b>Infra / DevOps</b></summary>
+### Infra / DevOps
 
 Supabase · Neon · Netlify · Render · Sentry · New Relic · Databricks · Snyk · Modal · Baseten · Runpod · Fal · Segmind · DataStax · Trigger.dev · Xata · Buildkite · CircleCI · Docker Hub · npm · GitLab · Bitbucket · LaunchDarkly · Statsig · Honeybadger
-</details>
 
-<details>
-<summary><b>Product / Growth / Comms</b></summary>
+### Product / Growth / Comms
 
 Resend · SendGrid · Brevo · MailerSend · Courier · Notion · Linear · Airtable · HubSpot · Stripe · Discord · Intercom · Klaviyo · Contentful · Cal.com · Asana · ClickUp · Figma · Dropbox · Typeform · Twitter/X · Pushbullet · Modrinth
-</details>
 
-<details>
-<summary><b>Data / Utility</b></summary>
+### Data / Utility
 
 DeepL · PostHog · LangSmith · Langfuse · Helicone · Portkey · Browserbase · Apify · OpenPipe · PromptLayer · ScrapingBee · Scrapfly · Mem0 · Tinybird · CoinGecko · AbuseIPDB · Pexels · Pixabay · WolframAlpha · IPinfo · CurrencyAPI · Duffel · Leonardo
-</details>
 
 Machine-readable registries:
 
@@ -133,7 +123,7 @@ Machine-readable registries:
 Keep both registries in sync.
 
 | File | Role |
-|---|---|
+| --- | --- |
 | `src/lib/providers.ts` | Frontend `keyPattern` + display metadata |
 | `scripts/providers.mjs` | Runner HTTP call (`m`, `u`, `h`, `f`, optional body) |
 
@@ -156,17 +146,21 @@ React 19 · Vite 7 · Tailwind 4 · TypeScript 5 · Bun · GitHub Actions · Git
 This repo ships two workflows:
 
 | Workflow | Trigger | Purpose |
-|---|---|---|
+| --- | --- |
 | [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) | push to `main` / manual | Build SPA → GitHub Pages |
 | [`.github/workflows/validate-keys.yml`](.github/workflows/validate-keys.yml) | `repository_dispatch` | Run validation → `results` branch |
 
-Pages source must be **GitHub Actions** (already configured on the canonical repo). Project site URL:
+### Custom domain
 
-```text
-https://bossincrypto.github.io/api-key-validator/
-```
+Canonical site: **https://api-key-validator.bossincrypto.dev**
 
-Build uses `VITE_BASE_PATH=/${{ github.event.repository.name }}/` so forks work as project Pages sites without extra config.
+- `public/CNAME` → `api-key-validator.bossincrypto.dev`
+- Build uses `VITE_BASE_PATH=/` (root of the subdomain)
+- DNS (Porkbun): `CNAME` `api-key-validator` → `bossincrypto.github.io`
+- GitHub Pages: custom domain + HTTPS enforced
+
+Fallback project URL still works after DNS/CNAME:  
+https://bossincrypto.github.io/api-key-validator/ (paths differ when base is `/`)
 
 ## License
 
@@ -175,5 +169,7 @@ MIT
 ---
 
 <div align="center">
-<sub>Built for operators who rotate keys faster than they inventory them.</sub>
+
+Built for operators who rotate keys faster than they inventory them.
+
 </div>
