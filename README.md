@@ -4,13 +4,12 @@
 
 Paste a wall of keys. Auto-detect the provider. Hit each real auth endpoint from a GitHub Actions runner you control. Get `valid` / `invalid` / `rate_limited` / `error` for every one.
 
-[![Live](https://img.shields.io/badge/live-GitHub%20Pages-6366f1?style=for-the-badge)](https://bossincrypto.github.io/api-key-validator/)
+[![Live](https://img.shields.io/badge/live-api--key--validator.bossincrypto.dev-6366f1?style=for-the-badge)](https://api-key-validator.bossincrypto.dev)
 [![Providers](https://img.shields.io/badge/providers-113-0ea5e9?style=for-the-badge)](#supported-providers)
 [![Stack](https://img.shields.io/badge/stack-React%20%2B%20Vite%20%2B%20Actions-10b981?style=for-the-badge)](#stack)
 [![License](https://img.shields.io/badge/license-MIT-f59e0b?style=for-the-badge)](#license)
 
-**[Live demo](https://bossincrypto.github.io/api-key-validator/)** ·
-[Custom domain setup](#custom-domain) ·
+**[Live demo](https://api-key-validator.bossincrypto.dev)** ·
 [Report bug](https://github.com/BOSSincrypto/api-key-validator/issues) ·
 [Request provider](https://github.com/BOSSincrypto/api-key-validator/issues/new)
 
@@ -61,8 +60,7 @@ Deploy path is separate: every push to `main` builds the SPA and publishes to Gi
 
 ## Live demo
 
-**Site (now):** https://bossincrypto.github.io/api-key-validator/  
-**Custom domain (after DNS):** https://api-key-validator.bossincrypto.dev
+**Site:** https://api-key-validator.bossincrypto.dev
 
 1. Fork this repo.
 2. Create a [fine-grained PAT](https://github.com/settings/personal-access-tokens/new) limited to that fork:
@@ -150,34 +148,15 @@ This repo ships two workflows:
 
 ### Custom domain
 
-Target: **https://api-key-validator.bossincrypto.dev**
+**https://api-key-validator.bossincrypto.dev**
 
-Current DNS for that host still points at Porkbun parking (`pixie.porkbun.com`), not GitHub Pages. Until that changes, the live site is the project URL above.
+| Type | Host | Answer |
+| --- | --- | --- |
+| `CNAME` | `api-key-validator` | `bossincrypto.github.io` |
 
-**1. Porkbun DNS (one record):**
-
-| Type | Host | Answer | TTL |
-| --- | --- | --- | --- |
-| `CNAME` | `api-key-validator` | `bossincrypto.github.io` | 600 |
-
-Delete any conflicting A/AAAA/URL-forward for `api-key-validator`.
-
-**2. After DNS propagates** (`dig api-key-validator.bossincrypto.dev` should show `bossincrypto.github.io`):
-
-```bash
-# redeploy with CNAME published into the Pages artifact
-gh workflow run "Deploy to GitHub Pages" -f unused=1   # or push with ENABLE_CUSTOM_DOMAIN
-```
-
-Or set repo variable / re-enable in workflow by setting `ENABLE_CUSTOM_DOMAIN=true` on the build job env, then push.
-
-**3. GitHub Pages settings**
-
-- Custom domain: `api-key-validator.bossincrypto.dev`
-- Wait for DNS check + TLS certificate
-- Enforce HTTPS
-
-Build already uses relative asset paths (`./`) so both the subdomain root and `github.io/api-key-validator/` resolve assets correctly.
+- Artifact ships `CNAME` + relative base (`./`)
+- GitHub Pages custom domain + HTTPS enforced after certificate issues
+- Fallback project URL: https://bossincrypto.github.io/api-key-validator/
 
 ## License
 
