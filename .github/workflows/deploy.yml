@@ -31,6 +31,8 @@ jobs:
         env:
           # Relative base works for custom domain root AND github.io project path.
           VITE_BASE_PATH: "./"
+          # Flip to "true" after DNS: api-key-validator CNAME → bossincrypto.github.io
+          ENABLE_CUSTOM_DOMAIN: "false"
         run: |
           echo "VITE_BASE_PATH=${VITE_BASE_PATH}"
           bun run build
@@ -38,12 +40,21 @@ jobs:
           cat dist/index.html
 
       - name: SPA fallback + nojekyll
+        env:
+          ENABLE_CUSTOM_DOMAIN: "false"
         run: |
           cp dist/index.html dist/404.html
           touch dist/.nojekyll
-          printf '%s\n' 'api-key-validator.bossincrypto.dev' > dist/CNAME
+          # Publish CNAME only after DNS points at GitHub Pages.
+          if [ "${ENABLE_CUSTOM_DOMAIN}" = "true" ]; then
+            printf '%s\n' 'api-key-validator.bossincrypto.dev' > dist/CNAME
+            echo "CNAME enabled"
+            cat dist/CNAME
+          else
+            rm -f dist/CNAME
+            echo "CNAME deferred (set ENABLE_CUSTOM_DOMAIN=true after DNS)"
+          fi
           ls -la dist
-          cat dist/CNAME
 
       - uses: actions/upload-pages-artifact@v3
         with:
